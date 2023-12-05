@@ -1,0 +1,31 @@
+name: staging ecr push
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'If run flow deploy commit tag.'
+        required: true
+        default: ''
+
+env:
+  HOME_DIR: .
+  SRC_DIR: ./src
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      # BranchをCheckout
+      - name: Checkout
+        uses: actions/checkout@v3
+          ref: ${{ github.event.inputs.tag }}
+      
+      - name: Check files and pwd
+        working-directory: ${{ env.SRC_DIR }}
+        run: |
+          ls -la
+          pwd
