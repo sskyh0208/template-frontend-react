@@ -22,6 +22,7 @@ jobs:
       # BranchをCheckout
       - name: Checkout
         uses: actions/checkout@v3
+        with:
           ref: ${{ github.event.inputs.tag }}
       
       - name: Check files and pwd
